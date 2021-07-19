@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import { router } from './util/router';
+
 function App () {
   return (
     <Switch>

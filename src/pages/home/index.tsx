@@ -1,9 +1,11 @@
 import * as React from 'react';
+import './index.less'
+import MiCard from '../card'
 
 export default function home() {
   return (
     <div className="app">
-      <span>首页</span>
+      <MiCard type='inset'></MiCard>
     </div>
   );
 }

@@ -17,6 +17,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin") //拆分css
 // npm i -D eslint 安装eslint
 // npm install --save react react-dom @types/react @types/react-dom
 // npm install --save-dev typescript awesome-typescript-loader source-map-loader
+const WebpackBar = require('webpackbar'); // 添加打包进度条
 module.exports = {
     entry: {
         index:path.resolve(__dirname,'../src/index.tsx'),
@@ -36,6 +37,7 @@ module.exports = {
         },
     },
     plugins:[
+        new WebpackBar(),
         new HtmlWebpackPlugin({
             template:path.resolve(__dirname,'../public/index.html'),
             filename:'index.html',
@@ -60,7 +62,11 @@ module.exports = {
             },
             {
                 test:/\.less$/,
-                use:['style-loader','css-loader','postcss-loader','less-loader'] // 从右向左解析原则
+                use:[
+                    'style-loader',
+                    'css-loader',
+                    'less-loader',
+                ], // 从右向左解析原则
             },
             {
                 test:/\.less$/,
@@ -72,8 +78,18 @@ module.exports = {
                         }
                     },
                     'css-loader',
-                    'less-loader'
-                ] // 从右向左解析原则
+                    'less-loader',
+                    {
+                        loader: 'style-resources-loader',
+                        options: {
+                            patterns: [
+                              path.resolve(__dirname, '../styles/common.less'),
+                              path.resolve(__dirname, '../styles/variables.less')
+                            ]
+                        },
+                    }
+                ], // 从右向左解析原则
+                // sideEffects: true
             },
             {
                 test: /\.(jpe?g|png|gif)$/i, //图片文件
