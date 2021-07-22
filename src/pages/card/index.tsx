@@ -5,37 +5,51 @@ import './index.less'
 
 
 type IProps = Readonly<{
+  style?:unknown;
   type?: string;
-  style?: React.CSSProperties;
-  value?: string;
-  onChange?: Function;
+  title?: string | JSX.Element;
+  body?: string | JSX.Element;
 }>;
 
 class MiCard extends Component<IProps>{
 
-
   private handleClass():string{
-    let classText = 'mi-card-children'
-    console.log(this.props.type)
+    let classText = 'mi-card'
     switch (this.props.type){
       case 'inset':
-        classText+= ' inset'
+        classText+= ' mi-card-inset'
         break;
       case 'dent':
-        classText+= ' dent'
+        classText+= ' mi-card-dent'
         break;
       case 'raised':
-        classText+= ' raised'
+        classText+= ' mi-card-raised'
         break;
     }
     return classText
   }
 
   render(){
+    const { title, type, style } = this.props
+
     return(
       <>
-        <div className='mi-card inset'>
-          <div className={this.handleClass()}></div>
+        <div className={this.handleClass()} style={style}>
+          <div className="mi-card-children">
+            {
+              type === 'free' ? this.props.children
+                :<>
+                  { title &&
+                  <div className='mi-card-title'>
+                    {title}
+                  </div>
+                  }
+                  <div className="mi-card-body">
+                    {this.props.children}
+                  </div>
+                </>
+            }
+          </div>
         </div>
       </>
     )

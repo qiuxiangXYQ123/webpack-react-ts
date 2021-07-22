@@ -101,6 +101,7 @@ module.exports = {
                             fallback: {
                                 loader: 'file-loader',
                                 options: {
+                                    esModule: false,
                                     name: 'img/[name].[hash:8].[ext]'
                                 }
                             }
