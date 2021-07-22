@@ -14,7 +14,6 @@ type IProps = Readonly<{
 class MiCard extends Component<IProps>{
 
   private handleClass():string{
-
     let classText = 'mi-card'
     switch (this.props.type){
       case 'inset':
